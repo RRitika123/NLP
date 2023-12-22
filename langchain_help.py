@@ -10,31 +10,31 @@ os.environ['OPENAI_API_KEY'] = openapi_key
 llm = OpenAI(temperature = 0.7)
 
 
-def generate_restaurant_name_and_items(cuisine):
-    # Chain 1: restaurant Name
+def generate_channel_name_and_topics(niche):
+    # Chain 1: channel Name
     prompt_template_name = PromptTemplate(
-        input_variables = ['cuisine'], 
-        template = "I want to open a resturant for {cuisine} food. Suggest a fancy name for this."
+        input_variables = ['niche'], 
+        template = "I want to open a new youtube on {niche}. Can you suggest me one name for my channel"
     )
 
-    name_chain = LLMChain(llm=llm, prompt = prompt_template_name, output_key="restaurant_name")
+    name_chain = LLMChain(llm=llm, prompt = prompt_template_name, output_key="channel_name")
 
-    # Chain2: Menu Items
+    # Chain2: Trending topics
     prompt_template_items = PromptTemplate(
-        input_variables = ['restaurant_name'],
-        template = "Suggest some menu items for {restaurant_name}. Return it as comma separated list"
+        input_variables = ['channel_name'],
+        template = "Suggest some trending topices for {channel_name}. Return it as comma separated list"
     )
 
-    food_items_chain = LLMChain(llm=llm, prompt=prompt_template_items, output_key="menu_items")
+    topics_chain = LLMChain(llm=llm, prompt=prompt_template_items, output_key="topics")
 
     chain = SequentialChain(
-        chains = [name_chain, food_items_chain],
-        input_variables = ["cuisine"],
-        output_variables = ["restaurant_name","menu_items"]
+        chains = [name_chain, topics_chain],
+        input_variables = ["niche"],
+        output_variables = ["channel_name","topics"]
     )
 
-    response = chain({'cuisine': cuisine})
+    response = chain({'niche': niche})
     return response
 
 if __name__ == "__main__":
-    print(generate_restaurant_name_and_items("Italian"))
+    print(generate_channel_name_and_topics("Cooking"))
