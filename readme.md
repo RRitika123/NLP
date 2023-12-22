@@ -1,10 +1,10 @@
 # LangChain Application
 
-Langchain is a framework that allows us to build applications using LLMs
+Langchain is a framework that allows us to build applications using LLMs.
 In this project we are using llm called OpenAI using Langchain framework.
 
 A brief description of what this project does: 
-We have a built an application which will help our user to suggest their channel name given the name of the niche they are interested in also will suggest some trending topics to make content on.
+We have a built an application which will help our user to suggest their channel name given the name of the niche they are interested in. Also will suggest some trending topics to make content on.
 
 ## Installation of modules
 
